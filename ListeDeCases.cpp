@@ -24,7 +24,7 @@ using std::range_error;
 namespace tp1
 {
 
-    ListeDeCases::ListeDeCases()
+    ListeDeCases::ListeDeCases() : m_debut(nullptr), m_fin(nullptr), m_taille(0)
     {
         // Ce constructeur peut rester vide (en utilisant la liste d'initialisation).
     }
@@ -32,28 +32,110 @@ namespace tp1
     ListeDeCases::~ListeDeCases()
     {
         // À compléter !
+       /* delete m_debut;
+        delete m_fin;
+        m_taille = 0;
+
+        if (m_fin != 0)
+        {
+            Noeud * courant = m_fin->m_precedent;
+            Noeud * autre = courant;
+            while (courant != m_fin)
+            {
+                courant = courant->m_precedent;
+                delete autre;
+                autre = courant;
+            }
+            delete m_fin;
+        }
+        m_fin = 0;*/
+
+
     }
 
     int ListeDeCases::taille() const
     {
         // À corriger !
-        return 0;
+        return m_taille;
     }
 
     bool ListeDeCases::estVide() const
     {
         // À corriger !
-        return true;
+        if (taille() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     void ListeDeCases::ajouterCase(const Case& uneCase, int position)
     {
         // À compléter !
+        if (position < 0 || position > taille())
+            throw std::range_error("ajouterCase: Position est erronee");
+
+        auto nouveau = new Noeud(uneCase, nullptr, nullptr);
+
+
+        if (estVide()) {
+            m_debut = nouveau;
+            m_fin = nouveau;
+        } else if (position == taille()) {
+            m_fin = nouveau;
+            nouveau->m_precedent = noeudAt(position - 1);
+            nouveau->m_suivant = nullptr;
+        } else {
+
+            nouveau->m_suivant = noeudAt(position + 1);
+            nouveau->m_precedent = noeudAt(position - 1);
+
+        }
+
+        m_taille = m_taille + 1;
+
+
     }
 
     void ListeDeCases::ajouterCaseALaFin(const Case& uneCase)
     {
         // À compléter !
+        int compteur = 0;
+        auto nouveau = new Noeud(uneCase, nullptr, nullptr);
+
+        if (estVide()) {
+            m_debut = nouveau;
+            m_fin = nouveau;
+        } else if (taille() == 1) {
+
+            m_fin = nouveau;
+            nouveau->m_precedent = m_debut;
+            m_debut->m_suivant = nouveau;
+        }else {
+
+            Noeud * courant = m_debut;
+
+            while (compteur != taille()) {
+                if (courant == m_debut) {
+                    courant->m_suivant = noeudAt(compteur + 1);
+                } else if (courant == m_fin) {
+                    courant->m_suivant = nouveau;
+                    courant->m_precedent = noeudAt(compteur - 1);
+                    m_fin = nouveau;
+                    m_fin->m_precedent = courant;
+                } else {
+                    courant->m_suivant = noeudAt(compteur + 1);
+                    courant->m_suivant->m_precedent = courant;
+                    courant->m_precedent = noeudAt(compteur - 1);
+                }
+
+                courant = courant->m_suivant;
+                compteur++;
+            }
+        }
+
+        m_taille = m_taille + 1;
+
     }
 
     void ListeDeCases::enleverCase(int position)
@@ -70,7 +152,19 @@ namespace tp1
     ListeDeCases::Noeud* ListeDeCases::noeudAt(int position) const
     {
         // À corriger !
-        return m_debut;
+        int compteur = 0;
+        Noeud * courant = m_debut;
+
+
+        while (compteur != position) {
+
+            courant = courant->m_suivant;
+
+            compteur++;
+        }
+
+
+        return courant;
     }
 
     // Le reste du code qui utilise surtout l'itérateur est fourni.

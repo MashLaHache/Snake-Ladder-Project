@@ -14,14 +14,13 @@ namespace tp1
 {
 
     template<typename T>
-    File<T>::File()
-    {
-        // Ce constructeur peut rester vide (en utilisant la liste d'initialisation).
-    }
+    File<T>::File() = default;
 
     template<typename T>
     void File<T>::enfiler ( const T& element )
     {
+
+            liste.ajouterFin(element);
         // À compléter !
     }
 
@@ -37,7 +36,7 @@ namespace tp1
     unsigned int File<T>::taille ()
     {
        // À corriger !
-       return 0;
+       return liste.taille();
     }
 
     //Ne touchez pas à cette fonction.

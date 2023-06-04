@@ -13,6 +13,14 @@
 
 int main()
 {
+
+    tp1::ListeDeCases liste;
+
+    liste.ajouterCaseALaFin(tp1::Case());
+    liste.ajouterCaseALaFin(tp1::Case());
+    liste.ajouterCaseALaFin(tp1::Case());
+
+
    tp1::JeuSerpentsEtEchelles jeu;
 
    std::cout << "Jeu 1:" << std::endl;;

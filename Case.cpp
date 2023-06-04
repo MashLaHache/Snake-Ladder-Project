@@ -22,6 +22,8 @@ namespace tp1
     Case::~Case()
     {
         // Réfléchissez s'il faut faire quelque chose !
+
+
     }
 
     //Fonction pour aider à afficher plus naturellement une case à l'écran.
