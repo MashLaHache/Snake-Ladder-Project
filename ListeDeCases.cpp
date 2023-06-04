@@ -157,12 +157,15 @@ namespace tp1
     void ListeDeCases::enleverCase(int position)
     {
         // À compléter !
+        if (position < 1 || position > taille())
+            throw std::range_error("enleverCase: Position pour l'enlevement est erronee");
+
     }
 
     const Case& ListeDeCases::caseA(int position) const
     {
         // À corriger !
-        return m_debut->m_case;
+        return noeudAt(position)->m_case;
     }
 
     ListeDeCases::Noeud* ListeDeCases::noeudAt(int position) const

@@ -14,12 +14,14 @@
 int main()
 {
 
-    /*tp1::ListeDeCases liste;
+    tp1::ListeDeCases liste;
 
     liste.ajouterCase(tp1::Case(), 0);
     liste.ajouterCase(tp1::Case(), 1);
     liste.ajouterCase(tp1::Case(), 1);
-    liste.ajouterCase(tp1::Case(), 1);*/
+    liste.ajouterCase(tp1::Case(tp1::Case::Jaune, tp1::Case::Serpent), 1);
+
+    std::cout << liste.caseA(2) << std::endl;
 
 
    tp1::JeuSerpentsEtEchelles jeu;
