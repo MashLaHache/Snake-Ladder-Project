@@ -28,7 +28,14 @@ namespace tp1
     T File<T>::defiler ()
     {
         // À corriger !
+        //mettre element dans temp
+        //delete lelement
+        //return temp
+        //taille() -1;
+
+
         T valeur = liste.element(1);
+        liste.enleverPos(1);
         return valeur;
     }
 
