@@ -32,24 +32,15 @@ namespace tp1
     ListeDeCases::~ListeDeCases()
     {
         // À compléter !
-       /* delete m_debut;
-        delete m_fin;
-        m_taille = 0;
+       Noeud * courant = m_fin;
 
-        if (m_fin != 0)
-        {
-            Noeud * courant = m_fin->m_precedent;
-            Noeud * autre = courant;
-            while (courant != m_fin)
-            {
-                courant = courant->m_precedent;
-                delete autre;
-                autre = courant;
-            }
-            delete m_fin;
+        while (courant != m_debut) {
+
+            Noeud * autre = m_fin->m_precedent;
+            delete courant;
+            courant = autre;
         }
-        m_fin = 0;*/
-
+        delete courant;
 
     }
 
@@ -77,23 +68,48 @@ namespace tp1
 
         auto nouveau = new Noeud(uneCase, nullptr, nullptr);
 
-
         if (estVide()) {
             m_debut = nouveau;
             m_fin = nouveau;
-        } else if (position == taille()) {
-            m_fin = nouveau;
-            nouveau->m_precedent = noeudAt(position - 1);
-            nouveau->m_suivant = nullptr;
-        } else {
+        }else {
+            Noeud * temp;
 
-            nouveau->m_suivant = noeudAt(position + 1);
-            nouveau->m_precedent = noeudAt(position - 1);
+            //ajout au debut
+            if (position == 0) {
+                temp = m_debut;
 
+                nouveau->m_suivant = temp;
+                nouveau->m_suivant->m_precedent = nouveau;
+                nouveau->m_precedent = nullptr;
+                m_debut = nouveau;
+
+            }
+            //ajout a la fin
+            else if(position == taille()) {
+                temp = m_fin;
+
+                nouveau->m_precedent = temp;
+                nouveau->m_precedent->m_suivant = nouveau;
+                nouveau->m_suivant = nullptr;
+                m_fin = nouveau;
+
+            }
+            //ajoute ailleurs
+            else {
+                //va chercher le noeud a la position voulu
+                temp = noeudAt(position);
+
+                //lien entre le nouveau et le noeud suivant
+                nouveau->m_suivant = temp;
+                nouveau->m_precedent = temp->m_precedent;
+
+                //lien entre le nouveau et le noeud precedent
+                temp->m_precedent->m_suivant = nouveau;
+                temp->m_precedent = nouveau;
+
+            }
         }
-
         m_taille = m_taille + 1;
-
 
     }
 

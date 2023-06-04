@@ -14,11 +14,12 @@
 int main()
 {
 
-    tp1::ListeDeCases liste;
+    /*tp1::ListeDeCases liste;
 
-    liste.ajouterCaseALaFin(tp1::Case());
-    liste.ajouterCaseALaFin(tp1::Case());
-    liste.ajouterCaseALaFin(tp1::Case());
+    liste.ajouterCase(tp1::Case(), 0);
+    liste.ajouterCase(tp1::Case(), 1);
+    liste.ajouterCase(tp1::Case(), 1);
+    liste.ajouterCase(tp1::Case(), 1);*/
 
 
    tp1::JeuSerpentsEtEchelles jeu;
