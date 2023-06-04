@@ -63,7 +63,7 @@ namespace tp1
     void ListeDeCases::ajouterCase(const Case& uneCase, int position)
     {
         // À compléter !
-        if (position < 0 || position > taille())
+        if (position < 1 || position > taille() + 1)
             throw std::range_error("ajouterCase: Position est erronee");
 
         auto nouveau = new Noeud(uneCase, nullptr, nullptr);
@@ -75,7 +75,7 @@ namespace tp1
             Noeud * temp;
 
             //ajout au debut
-            if (position == 0) {
+            if (position == 1) {
                 temp = m_debut;
 
                 nouveau->m_suivant = temp;
@@ -85,7 +85,7 @@ namespace tp1
 
             }
             //ajout a la fin
-            else if(position == taille()) {
+            else if(position == taille() + 1) {
                 temp = m_fin;
 
                 nouveau->m_precedent = temp;
@@ -116,7 +116,6 @@ namespace tp1
     void ListeDeCases::ajouterCaseALaFin(const Case& uneCase)
     {
         // À compléter !
-        int compteur = 0;
         auto nouveau = new Noeud(uneCase, nullptr, nullptr);
 
         if (estVide()) {
@@ -128,26 +127,9 @@ namespace tp1
             nouveau->m_precedent = m_debut;
             m_debut->m_suivant = nouveau;
         }else {
-
-            Noeud * courant = m_debut;
-
-            while (compteur != taille()) {
-                if (courant == m_debut) {
-                    courant->m_suivant = noeudAt(compteur + 1);
-                } else if (courant == m_fin) {
-                    courant->m_suivant = nouveau;
-                    courant->m_precedent = noeudAt(compteur - 1);
-                    m_fin = nouveau;
-                    m_fin->m_precedent = courant;
-                } else {
-                    courant->m_suivant = noeudAt(compteur + 1);
-                    courant->m_suivant->m_precedent = courant;
-                    courant->m_precedent = noeudAt(compteur - 1);
-                }
-
-                courant = courant->m_suivant;
-                compteur++;
-            }
+            m_fin->m_suivant = nouveau;
+            nouveau->m_precedent = m_fin;
+            m_fin = nouveau;
         }
 
         m_taille = m_taille + 1;
@@ -160,6 +142,47 @@ namespace tp1
         if (position < 1 || position > taille())
             throw std::range_error("enleverCase: Position pour l'enlevement est erronee");
 
+        Noeud * courant = noeudAt(position);
+
+        //si enlever au debut
+        if (position == 1) {
+            if (taille() == 1) {
+                delete courant;
+                m_taille--;
+                return;
+            }
+
+            Noeud * temp = courant->m_suivant;
+
+            courant->m_suivant = nullptr;
+            courant->m_precedent = nullptr;
+            temp->m_precedent = nullptr;
+            delete courant;
+            m_debut = temp;
+
+        }
+        //si enlever a la fin
+        else if (position == taille()) {
+
+            courant->m_precedent->m_suivant = nullptr;
+            courant->m_precedent = nullptr;
+
+            delete courant;
+        }
+        //enlever autre
+        else {
+            Noeud * noeudPrecedent = noeudAt(position - 1);
+            Noeud * noeudSuivant = noeudAt(position + 1);
+
+            noeudPrecedent->m_suivant = noeudSuivant;
+            noeudSuivant->m_precedent = noeudPrecedent;
+
+            delete courant;
+        }
+
+        // --taille
+        m_taille--;
+
     }
 
     const Case& ListeDeCases::caseA(int position) const
@@ -171,11 +194,11 @@ namespace tp1
     ListeDeCases::Noeud* ListeDeCases::noeudAt(int position) const
     {
         // À corriger !
-        int compteur = 0;
+        int compteur = 1;
         Noeud * courant = m_debut;
 
 
-        while (compteur != position) {
+        while (compteur < position) {
 
             courant = courant->m_suivant;
 
