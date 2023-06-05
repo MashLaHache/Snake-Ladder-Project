@@ -26,9 +26,77 @@ namespace tp1
 
     Resultat JeuSerpentsEtEchelles::jouer(unsigned int maximumDeTours)
     {
-        // Faire une boucle qui fera au plus «maximumDeTours» tours.
-        // Dans cette boucle, faire une autre boucle qui fera un tour par joueur.
-        // La partie se termine dès qu'un joueur accède à la dernière case À LA FIN DE SON TOUR.
+
+        //TEST JEU
+        std::string nomGagnantJouer;
+        int pigeCouleur = 0;
+        int nombreDeToursJouer = 0;
+
+        while (nomGagnantJouer.empty()){
+
+            //defiler le joueur au debut de la file
+            tp1::Joueur joueurActif =  m_joueurs.defiler();
+
+            //fait jouer le joueurActif
+            //pige une carte
+            //verifie si a la fin de la liste de choix couleur. si oui retourner au debut
+            if (pigeCouleur == m_choix.taille()) {
+                pigeCouleur = 1;
+            } else {
+                pigeCouleur++;
+            }
+
+            //check si case existe
+            if (joueurActif.position.existeCaseSuivante(m_choix.element(pigeCouleur)))
+            {
+                joueurActif.position.caseSuivante(m_choix.element(pigeCouleur));
+
+                //verifie la decoration de la caseCourante du joueurActif
+                if (joueurActif.position.caseCourante().decoration == tp1::Case::Serpent)
+                {
+                    //pige une autre carte
+                    //verifie si a la fin de la liste de choix couleur. si oui retourner au debut
+                    if (pigeCouleur == m_choix.taille()) {
+                        pigeCouleur = 1;
+                    } else {
+                        pigeCouleur++;
+                    }
+                    //verifie si couleur existe precedent
+                    if (joueurActif.position.existeCasePrecedente(m_choix.element(pigeCouleur))) {
+                        joueurActif.position.casePrecedente(m_choix.element(pigeCouleur));
+                    }
+                } else if (joueurActif.position.caseCourante().decoration == tp1::Case::Echelle)
+                {
+                    //pige une autre carte
+                    //verifie si a la fin de la liste de choix couleur. si oui retourner au debut
+                    if (pigeCouleur == m_choix.taille()) {
+                        pigeCouleur = 1;
+                    } else {
+                        pigeCouleur++;
+                    }
+                    //verifie si couleur existe suivante
+                    if (joueurActif.position.existeCaseSuivante(m_choix.element(pigeCouleur))) {
+                        joueurActif.position.caseSuivante(m_choix.element(pigeCouleur));
+                    }
+                }
+            }
+
+            //verifie si joueurActif rendu derniere case == GAGNER
+            if (joueurActif.position.estADerniereCase())
+            {
+                nomGagnantJouer = joueurActif.nom;
+
+
+            }
+
+            //enfile le joueurActif a la fin de la file
+            m_joueurs.enfiler(joueurActif);
+
+            //compte nombre de tour jouer
+            nombreDeToursJouer++;
+
+
+        }
 
         // La liste des choix de couleurs est contenue dans une liste circulaire appelée m_choix.
         // Vous devez parcourir toutes les couleurs et lorsque vous arrivez à la dernière, vous devez revenir à la première.
@@ -44,8 +112,9 @@ namespace tp1
         // unJoueur.position.caseCourante().decoration : permet de connaître la décoration de la case sur laquelle
         // se trouve unJoueur.
         // Voir la classe ListeDeCases::Iterateur pour connaitre les autres fonctions disponibles.
+        nombreDeToursJouer = nombreDeToursJouer / m_joueurs.taille();
 
-       return Resultat(maximumDeTours);
+       return Resultat(nombreDeToursJouer, nomGagnantJouer);
     }
 
     //Les quatre méthodes suivantes sont utilisées par le générateur jeu.

@@ -32,7 +32,9 @@ namespace tp1
         //delete lelement
         //return temp
         //taille() -1;
-
+        if (liste.estVide()) {
+            throw std::logic_error("File defiler: la file est vide");
+        }
 
         T valeur = liste.element(1);
         liste.enleverPos(1);

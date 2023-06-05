@@ -26,7 +26,7 @@ public:
 
    //Ajoute un élément à la fin de la file.
    //Réfléchissez à s'il y a des exceptions lancées par cette méthode.
-   void enfiler(const T& contenu);
+   void enfiler(const T& element);
 
    //Retire l'élément au début de la file et le renvoie.
    //Lance une exception si la file est vide (std::logic_error).
