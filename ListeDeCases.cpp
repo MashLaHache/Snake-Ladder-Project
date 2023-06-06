@@ -34,7 +34,8 @@ namespace tp1
         // À compléter !
        Noeud * courant = m_fin;
 
-        while (courant != m_debut) {
+        while (courant != m_debut)
+        {
 
             Noeud * autre = m_fin->m_precedent;
             delete courant;
@@ -53,9 +54,11 @@ namespace tp1
     bool ListeDeCases::estVide() const
     {
         // À corriger !
-        if (taille() == 0) {
+        if (taille() == 0)
+        {
             return true;
-        } else {
+        } else
+        {
             return false;
         }
     }
@@ -68,14 +71,17 @@ namespace tp1
 
         auto nouveau = new Noeud(uneCase, nullptr, nullptr);
 
-        if (estVide()) {
+        if (estVide())
+        {
             m_debut = nouveau;
             m_fin = nouveau;
-        }else {
+        }else
+        {
             Noeud * temp;
 
             //ajout au debut
-            if (position == 1) {
+            if (position == 1)
+            {
                 temp = m_debut;
 
                 nouveau->m_suivant = temp;
@@ -85,7 +91,8 @@ namespace tp1
 
             }
             //ajout a la fin
-            else if(position == taille() + 1) {
+            else if(position == taille() + 1)
+            {
                 temp = m_fin;
 
                 nouveau->m_precedent = temp;
@@ -95,7 +102,8 @@ namespace tp1
 
             }
             //ajoute ailleurs
-            else {
+            else
+            {
                 //va chercher le noeud a la position voulu
                 temp = noeudAt(position);
 
@@ -118,15 +126,18 @@ namespace tp1
         // À compléter !
         auto nouveau = new Noeud(uneCase, nullptr, nullptr);
 
-        if (estVide()) {
+        if (estVide())
+        {
             m_debut = nouveau;
             m_fin = nouveau;
-        } else if (taille() == 1) {
+        } else if (taille() == 1)
+        {
 
             m_fin = nouveau;
             nouveau->m_precedent = m_debut;
             m_debut->m_suivant = nouveau;
-        }else {
+        }else
+        {
             m_fin->m_suivant = nouveau;
             nouveau->m_precedent = m_fin;
             m_fin = nouveau;
@@ -145,8 +156,10 @@ namespace tp1
         Noeud * courant = noeudAt(position);
 
         //si enlever au debut
-        if (position == 1) {
-            if (taille() == 1) {
+        if (position == 1)
+        {
+            if (taille() == 1)
+            {
                 delete courant;
                 m_taille--;
                 return;
@@ -162,7 +175,8 @@ namespace tp1
 
         }
         //si enlever a la fin
-        else if (position == taille()) {
+        else if (position == taille())
+        {
 
             courant->m_precedent->m_suivant = nullptr;
             courant->m_precedent = nullptr;
@@ -170,7 +184,8 @@ namespace tp1
             delete courant;
         }
         //enlever autre
-        else {
+        else
+        {
             Noeud * noeudPrecedent = noeudAt(position - 1);
             Noeud * noeudSuivant = noeudAt(position + 1);
 
@@ -198,7 +213,8 @@ namespace tp1
         Noeud * courant = m_debut;
 
 
-        while (compteur < position) {
+        while (compteur < position)
+        {
 
             courant = courant->m_suivant;
 

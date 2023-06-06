@@ -37,13 +37,15 @@ namespace tp1
         while (nomGagnantJouer.empty()){
 
             //si compteur == m_joueurs.taille() nombreDeToursJouer++
-            if (compteur == m_joueurs.taille()){
+            if (compteur == m_joueurs.taille())
+            {
                 nombreDeToursJouer++;
                 compteur = 0;
             }
 
             //si on est rendu au dernier tour allouer on sort de la boucle. aucun gagnant
-            if (nombreDeToursJouer == maximumDeTours){
+            if (nombreDeToursJouer == maximumDeTours)
+            {
                 break;
             }
 
@@ -55,9 +57,11 @@ namespace tp1
             //fait jouer le joueurActif
             //pige une carte
             //verifie si a la fin de la liste de choix couleur. si oui retourner au debut
-            if (pigeCouleur == m_choix.taille()) {
+            if (pigeCouleur == m_choix.taille())
+            {
                 pigeCouleur = 1;
-            } else {
+            } else
+            {
                 pigeCouleur++;
             }
 
@@ -71,26 +75,32 @@ namespace tp1
                 {
                     //pige une autre carte
                     //verifie si a la fin de la liste de choix couleur. si oui retourner au debut
-                    if (pigeCouleur == m_choix.taille()) {
+                    if (pigeCouleur == m_choix.taille())
+                    {
                         pigeCouleur = 1;
-                    } else {
+                    } else
+                    {
                         pigeCouleur++;
                     }
                     //verifie si couleur existe precedent
-                    if (joueurActif.position.existeCasePrecedente(m_choix.element(pigeCouleur))) {
+                    if (joueurActif.position.existeCasePrecedente(m_choix.element(pigeCouleur)))
+                    {
                         joueurActif.position.casePrecedente(m_choix.element(pigeCouleur));
                     }
                 } else if (joueurActif.position.caseCourante().decoration == tp1::Case::Echelle)
                 {
                     //pige une autre carte
                     //verifie si a la fin de la liste de choix couleur. si oui retourner au debut
-                    if (pigeCouleur == m_choix.taille()) {
+                    if (pigeCouleur == m_choix.taille())
+                    {
                         pigeCouleur = 1;
-                    } else {
+                    } else
+                    {
                         pigeCouleur++;
                     }
                     //verifie si couleur existe suivante
-                    if (joueurActif.position.existeCaseSuivante(m_choix.element(pigeCouleur))) {
+                    if (joueurActif.position.existeCaseSuivante(m_choix.element(pigeCouleur)))
+                    {
                         joueurActif.position.caseSuivante(m_choix.element(pigeCouleur));
                     }
                 }
