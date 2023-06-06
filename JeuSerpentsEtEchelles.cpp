@@ -30,12 +30,27 @@ namespace tp1
         //TEST JEU
         std::string nomGagnantJouer;
         int pigeCouleur = 0;
-        int nombreDeToursJouer = 0;
+        int compteur = 0;
+        int nombreDeToursJouer = 1;
 
+        //continuer a jouer jusqua temps que lon trouve un gagnant ou que nombreDeToursJouer == maximumDeTours
         while (nomGagnantJouer.empty()){
+
+            //si compteur == m_joueurs.taille() nombreDeToursJouer++
+            if (compteur == m_joueurs.taille()){
+                nombreDeToursJouer++;
+                compteur = 0;
+            }
+
+            //si on est rendu au dernier tour allouer on sort de la boucle. aucun gagnant
+            if (nombreDeToursJouer == maximumDeTours){
+                break;
+            }
+
 
             //defiler le joueur au debut de la file
             tp1::Joueur joueurActif =  m_joueurs.defiler();
+
 
             //fait jouer le joueurActif
             //pige une carte
@@ -86,15 +101,13 @@ namespace tp1
             {
                 nomGagnantJouer = joueurActif.nom;
 
-
             }
 
             //enfile le joueurActif a la fin de la file
             m_joueurs.enfiler(joueurActif);
 
-            //compte nombre de tour jouer
-            nombreDeToursJouer++;
-
+            //compter le tour personnel dun joueur
+            compteur++;
 
         }
 
@@ -112,7 +125,15 @@ namespace tp1
         // unJoueur.position.caseCourante().decoration : permet de connaître la décoration de la case sur laquelle
         // se trouve unJoueur.
         // Voir la classe ListeDeCases::Iterateur pour connaitre les autres fonctions disponibles.
-        nombreDeToursJouer = nombreDeToursJouer / m_joueurs.taille();
+
+        //corrige la division en int. si impair ajoute + 1 pour la perte dans le calcul.
+        /*if (nombreDeToursJouer % 2 == 0)
+        {
+            nombreDeToursJouer = nombreDeToursJouer / m_joueurs.taille();
+        } else {
+            nombreDeToursJouer = nombreDeToursJouer / m_joueurs.taille();
+            nombreDeToursJouer++;
+        }*/
 
        return Resultat(nombreDeToursJouer, nomGagnantJouer);
     }

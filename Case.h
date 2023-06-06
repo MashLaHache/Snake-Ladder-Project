@@ -34,7 +34,7 @@ struct Case
        static const int nombreDecorations = 3; //Nombre de décorations dans la structure de décorations.
 
        //Constructeur (attention aux paramètres par défaut).
-       Case(Couleur couleur = Bleu, Decoration decoration = Aucune);
+       explicit Case(Couleur couleur = Bleu, Decoration decoration = Aucune);
 
        //Destructeur.
        ~Case();

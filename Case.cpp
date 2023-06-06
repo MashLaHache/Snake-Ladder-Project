@@ -19,12 +19,7 @@ namespace tp1
         // Ce constructeur peut rester vide (en utilisant la liste d'initialisation).
     }
 
-    Case::~Case()
-    {
-        // Réfléchissez s'il faut faire quelque chose !
-
-
-    }
+    Case::~Case() = default;
 
     //Fonction pour aider à afficher plus naturellement une case à l'écran.
     std::string decorationEnLettre(Case::Decoration decoration)
