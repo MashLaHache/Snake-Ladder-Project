@@ -4,7 +4,7 @@
 /**
  * \file ListeDeCases.cpp
  * \brief Ce fichier contient une implémentation de la classe ListeDeCases
- * \author IFT-2008
+ * \author Maxime Perron
  * \version 0.1
  * \date mai-juin 2023
  */

@@ -4,7 +4,7 @@
 /**
  * \file File.hpp
  * \brief Ce fichier contient une implémentation générique de la classe File
- * \author IFT-2008
+ * \author Maxime Perron
  * \version 0.1
  * \date mai-juin 2023
  */
