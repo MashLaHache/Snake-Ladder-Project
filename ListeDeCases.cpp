@@ -23,12 +23,16 @@ using std::range_error;
 
 namespace tp1
 {
-
+    /**
+     * @brief constructeur de base pour une liste de cases
+     */
     ListeDeCases::ListeDeCases() : m_debut(nullptr), m_fin(nullptr), m_taille(0)
     {
         // Ce constructeur peut rester vide (en utilisant la liste d'initialisation).
     }
-
+    /**
+     * @brief destructeur de base pour une liste de cases
+     */
     ListeDeCases::~ListeDeCases()
     {
         // À compléter !
@@ -45,12 +49,20 @@ namespace tp1
 
     }
 
+    /**
+     * @brief function qui permet de retourner la taille de la liste
+     * @return int m_taille
+     */
     int ListeDeCases::taille() const
     {
         // À corriger !
         return m_taille;
     }
 
+    /**
+     * @brief function qui permet de verifier si la liste est vide
+     * @return bool true si vide, false si non-vide
+     */
     bool ListeDeCases::estVide() const
     {
         // À corriger !
@@ -63,6 +75,11 @@ namespace tp1
         }
     }
 
+    /**
+     * @brief function void qui permet dajouter une case dans la liste a une position precise
+     * @param uneCase const Case&
+     * @param position int
+     */
     void ListeDeCases::ajouterCase(const Case& uneCase, int position)
     {
         // À compléter !
@@ -121,35 +138,49 @@ namespace tp1
 
     }
 
+    /**
+     * @brief function void qui permet dajouter une case a la fin de la liste
+     * @param uneCase const Case&
+     */
     void ListeDeCases::ajouterCaseALaFin(const Case& uneCase)
     {
-        // À compléter !
+
         auto nouveau = new Noeud(uneCase, nullptr, nullptr);
 
+        //verifie si la liste est vide en premier
         if (estVide())
         {
             m_debut = nouveau;
             m_fin = nouveau;
-        } else if (taille() == 1)
+        }
+        // sil y a une seul case existante dans la liste
+        else if (taille() == 1)
         {
 
             m_fin = nouveau;
             nouveau->m_precedent = m_debut;
             m_debut->m_suivant = nouveau;
-        }else
+        }
+        //cas ou plus de 1 case dans la liste
+        else
         {
             m_fin->m_suivant = nouveau;
             nouveau->m_precedent = m_fin;
             m_fin = nouveau;
         }
 
+        //mettre a jour la taille
         m_taille = m_taille + 1;
 
     }
 
+    /**
+     * @brief function void qui permet denlever une case a une position precise
+     * @param position int
+     */
     void ListeDeCases::enleverCase(int position)
     {
-        // À compléter !
+        //check out of range position
         if (position < 1 || position > taille())
             throw std::range_error("enleverCase: Position pour l'enlevement est erronee");
 
@@ -200,19 +231,29 @@ namespace tp1
 
     }
 
+    /**
+     * @brief function qui retourne une case a la position precise dans la liste
+     * @param position int
+     * @return const Case&
+     */
     const Case& ListeDeCases::caseA(int position) const
     {
-        // À corriger !
+        //va chercher la case dans le noeud a la position rechercher
         return noeudAt(position)->m_case;
     }
 
+    /**
+     * @brief function qui retourne un noeud a la position rechercher dans la liste
+     * @param position int
+     * @return Noeud*
+     */
     ListeDeCases::Noeud* ListeDeCases::noeudAt(int position) const
     {
-        // À corriger !
+
         int compteur = 1;
         Noeud * courant = m_debut;
 
-
+        // passe dans liste et arrete lorsque le noeud est trouver
         while (compteur < position)
         {
 
@@ -221,7 +262,7 @@ namespace tp1
             compteur++;
         }
 
-
+        //retourne le noeud trouver
         return courant;
     }
 

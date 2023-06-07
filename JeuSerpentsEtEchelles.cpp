@@ -19,15 +19,21 @@ using std::ostream;
 namespace tp1
 {
 
-    JeuSerpentsEtEchelles::JeuSerpentsEtEchelles()
+    /**
+     * @brief constructeur de base JeuSerpentEtEchelles
+     */
+    JeuSerpentsEtEchelles::JeuSerpentsEtEchelles() : m_cases(), m_choix(), m_joueurs()
     {
         // Ce constructeur peut rester vide (en utilisant la liste d'initialisation).
     }
 
+    /**
+     * @brief function qui permet de retourner le resultat dun jeu avec un maximum de tours.
+     * @param maximumDeTours  int. maximum de tour a jouer
+     * @return le resultat du jeu. un gagnant avec le nombre de tours jouer.
+     */
     Resultat JeuSerpentsEtEchelles::jouer(unsigned int maximumDeTours)
     {
-
-        //TEST JEU
         std::string nomGagnantJouer;
         int pigeCouleur = 0;
         int compteur = 0;
@@ -49,10 +55,8 @@ namespace tp1
                 break;
             }
 
-
             //defiler le joueur au debut de la file
             tp1::Joueur joueurActif =  m_joueurs.defiler();
-
 
             //fait jouer le joueurActif
             //pige une carte
@@ -120,30 +124,6 @@ namespace tp1
             compteur++;
 
         }
-
-        // La liste des choix de couleurs est contenue dans une liste circulaire appelée m_choix.
-        // Vous devez parcourir toutes les couleurs et lorsque vous arrivez à la dernière, vous devez revenir à la première.
-
-        // Les joueurs sont contenus dans une file et joue à tour de rôle.
-        // Il faut donc défiler un joueur, le faire jouer et l'enfiler à la fin de la file.
-
-        // Aide sur l'utilisation des itérateurs de cases que possèdent les joueurs.
-        // Supposer que unJoueur est une instance de la classe Joueur, alors :
-        // unJoueur.position.existeCaseSuivante(uneCouleur) : permet de savoir si une case de couleur «uneCouleur»
-        // se trouve après la case où se trouve unJoueur.
-        // unJoueur.position.caseSuivante(uneCouleur) : permet de déplacer un joueur sur la prochaine case de couleur uneCouleur.
-        // unJoueur.position.caseCourante().decoration : permet de connaître la décoration de la case sur laquelle
-        // se trouve unJoueur.
-        // Voir la classe ListeDeCases::Iterateur pour connaitre les autres fonctions disponibles.
-
-        //corrige la division en int. si impair ajoute + 1 pour la perte dans le calcul.
-        /*if (nombreDeToursJouer % 2 == 0)
-        {
-            nombreDeToursJouer = nombreDeToursJouer / m_joueurs.taille();
-        } else {
-            nombreDeToursJouer = nombreDeToursJouer / m_joueurs.taille();
-            nombreDeToursJouer++;
-        }*/
 
        return Resultat(nombreDeToursJouer, nomGagnantJouer);
     }

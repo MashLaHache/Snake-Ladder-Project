@@ -16,6 +16,11 @@ namespace tp1
     template<typename T>
     File<T>::File() = default;
 
+    /**
+     * @brief function void qui permet dajouter a la fin de la file un element T
+     * @tparam T
+     * @param element
+     */
     template<typename T>
     void File<T>::enfiler ( const T& element )
     {
@@ -24,24 +29,31 @@ namespace tp1
         // À compléter !
     }
 
+    /**
+     * @brief function qui permet de retirer un element de la file
+     * @tparam T
+     * @return retourne element T de la file
+     */
     template<typename T>
     T File<T>::defiler ()
     {
-        // À corriger !
-        //mettre element dans temp
-        //delete lelement
-        //return temp
-        //taille() -1;
+        //check si file est vide
         if (liste.estVide())
         {
             throw std::logic_error("File defiler: la file est vide");
         }
-
+        //choisi le premier element de la file et le retire
         T valeur = liste.element(1);
         liste.enleverPos(1);
+        //retourne lelement retirer
         return valeur;
     }
 
+    /**
+     * @brief function qui retourne la taille de la file
+     * @tparam T
+     * @return unsigned int taille de la file
+     */
     template<typename T>
     unsigned int File<T>::taille ()
     {
